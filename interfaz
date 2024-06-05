@@ -1,0 +1,54 @@
+// Interfaz para operaciones de billetera virtual
+interface BilleteraOperaciones {
+    void depositar(double cantidad);
+    void retirar(double cantidad);
+    void convertirMoneda(double cantidad, String monedaOrigen, String monedaDestino);
+}
+
+// Clase BilleteraVirtual que implementa la interfaz BilleteraOperaciones
+class BilleteraVirtual implements BilleteraOperaciones {
+    private double saldo;
+
+    // Constructor
+    public BilleteraVirtual(double saldoInicial) {
+        this.saldo = saldoInicial;
+    }
+
+    // Métodos para la administración de fondos
+    @Override
+    public void depositar(double cantidad) {
+        this.saldo += cantidad;
+    }
+
+    @Override
+    public void retirar(double cantidad) {
+        if (cantidad <= this.saldo) {
+            this.saldo -= cantidad;
+        } else {
+            System.out.println("Saldo insuficiente.");
+        }
+    }
+
+    // Método para la conversión de moneda
+    @Override
+    public void convertirMoneda(double cantidad, String monedaOrigen, String monedaDestino) {
+        // Lógica de conversión de moneda
+        // ...
+    }
+
+    // Método para obtener el saldo actual
+    public double getSaldo() {
+        return this.saldo;
+    }
+}
+
+// Clase principal de la aplicación
+public class AlkeWallet {
+    public static void main(String[] args) {
+        // Ejemplo de uso de la billetera virtual
+        BilleteraVirtual billetera = new BilleteraVirtual(100.0);
+        billetera.depositar(50.0);
+        billetera.retirar(30.0);
+        System.out.println("Saldo actual: " + billetera.getSaldo());
+    }
+}
