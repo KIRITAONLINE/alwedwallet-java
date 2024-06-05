@@ -1,0 +1,40 @@
+import static org.junit.Assert.*;
+import org.junit.Test;
+
+public class BilleteraDigitalTest {
+
+    @Test
+    public void depositarSaldoCorrecto() {
+        BilleteraDigital billetera = new BilleteraDigital(100.0);
+        billetera.depositar(50.0);
+        assertEquals(150.0, billetera.getSaldo(), 0.001);
+    }
+
+    @Test
+    public void retirarSaldoSuficiente() {
+        BilleteraDigital billetera = new BilleteraDigital(100.0);
+        billetera.retirar(50.0);
+        assertEquals(50.0, billetera.getSaldo(), 0.001);
+    }
+
+    @Test
+    public void retirarSaldoInsuficiente() {
+        BilleteraDigital billetera = new BilleteraDigital(100.0);
+        billetera.retirar(150.0); // Intentar retirar más de lo que hay en la billetera
+        assertEquals(100.0, billetera.getSaldo(), 0.001);
+    }
+
+    @Test
+    public void convertirMonedaCorrecta() {
+        BilleteraDigital billetera = new BilleteraDigital(100.0);
+        billetera.convertir(20.0, "USD", "EUR");
+        assertEquals(100.0 - 20.0 * ConvertidorDeMoneda.getTasaConversion("USD", "EUR"), billetera.getSaldo(), 0.001);
+    }
+
+    @Test
+    public void convertirMonedaIncorrecta() {
+        BilleteraDigital billetera = new BilleteraDigital(100.0);
+        billetera.convertir(20.0, "EUR", "XYZ"); // Intentar convertir a una moneda inexistente
+        assertEquals(100.0, billetera.getSaldo(), 0.001);
+    }
+}
