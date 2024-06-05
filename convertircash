@@ -1,0 +1,58 @@
+public class BilleteraVirtual {
+    private double saldo;
+    private double tasaConversion;
+
+    // Constructor
+    public BilleteraVirtual(double saldoInicial, double tasaConversion) {
+        this.saldo = saldoInicial;
+        this.tasaConversion = tasaConversion;
+    }
+
+    // Método para depositar fondos
+    public void depositar(double cantidad) {
+        if (cantidad > 0) {
+            this.saldo += cantidad;
+            System.out.println("Se han depositado " + cantidad + " unidades. Saldo actual: " + this.saldo);
+        } else {
+            System.out.println("La cantidad a depositar debe ser mayor que cero.");
+        }
+    }
+
+    // Método para retirar fondos
+    public void retirar(double cantidad) {
+        if (cantidad > 0 && this.saldo >= cantidad) {
+            this.saldo -= cantidad;
+            System.out.println("Se han retirado " + cantidad + " unidades. Saldo actual: " + this.saldo);
+        } else {
+            System.out.println("La cantidad a retirar debe ser mayor que cero y no puede exceder el saldo disponible.");
+        }
+    }
+
+    // Método para convertir monedas
+    public void convertir(double cantidad, double tasa) {
+        if (cantidad > 0 && this.saldo >= cantidad) {
+            double cantidadConvertida = cantidad * tasa;
+            this.saldo -= cantidad;
+            this.saldo += cantidadConvertida;
+            System.out.println("Se han convertido " + cantidad + " unidades. Saldo actual: " + this.saldo);
+        } else {
+            System.out.println("La cantidad a convertir debe ser mayor que cero y no puede exceder el saldo disponible.");
+        }
+    }
+
+    // Método para obtener el saldo actual
+    public double getSaldo() {
+        return this.saldo;
+    }
+
+    public static void main(String[] args) {
+        BilleteraVirtual billetera = new BilleteraVirtual(100.0, 0.85); // Inicializar la billetera con un saldo de 100 unidades y una tasa de conversión de 0.85
+        System.out.println("Saldo inicial: " + billetera.getSaldo());
+
+        billetera.depositar(50.0);
+        billetera.retirar(30.0);
+        billetera.convertir(20.0, 0.9); // Convertir 20 unidades a una tasa de conversión de 0.9
+
+        System.out.println("Saldo final: " + billetera.getSaldo());
+    }
+}
