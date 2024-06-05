@@ -1,0 +1,45 @@
+
+public class BilleteraVirtual {
+    private double saldo;
+
+    // Constructor
+    public BilleteraVirtual(double saldoInicial) {
+        this.saldo = saldoInicial;
+    }
+
+    // Método para depositar fondos
+    public void depositar(double cantidad) {
+        if (cantidad > 0) {
+            this.saldo += cantidad;
+            System.out.println("Se han depositado " + cantidad + " unidades. Saldo actual: " + this.saldo);
+        } else {
+            System.out.println("La cantidad a depositar debe ser mayor que cero.");
+        }
+    }
+
+    // Método para retirar fondos
+    public void retirar(double cantidad) {
+        if (cantidad > 0 && this.saldo >= cantidad) {
+            this.saldo -= cantidad;
+            System.out.println("Se han retirado " + cantidad + " unidades. Saldo actual: " + this.saldo);
+        } else {
+            System.out.println("La cantidad a retirar debe ser mayor que cero y no puede exceder el saldo disponible.");
+        }
+    }
+
+    // Método para obtener el saldo actual
+    public double getSaldo() {
+        return this.saldo;
+    }
+
+    public static void main(String[] args) {
+        BilleteraVirtual billetera = new BilleteraVirtual(100.0); // Inicializar la billetera con un saldo de 100 unidades
+        System.out.println("Saldo inicial: " + billetera.getSaldo());
+
+        billetera.depositar(50.0);
+        billetera.retirar(30.0);
+        billetera.retirar(150.0); // Intentar retirar más de lo que hay en la billetera
+
+        System.out.println("Saldo final: " + billetera.getSaldo());
+    }
+}
